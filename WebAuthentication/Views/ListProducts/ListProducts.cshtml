@@ -1,0 +1,51 @@
+﻿@model List<Product>
+@{
+    ViewBag.Title = "ListProducts";
+}
+
+<h2>Product List</h2>
+
+@Html.ActionLink("To Add New Product Click Here", "AddProduct","Create")
+
+<hr />
+
+<div class="panel panel-primary">
+    <div class="panel panel-default">
+        <table class="table table-hover">
+            <tr>
+                <th>Product Name</th>
+                <th>Unit Price</th>
+                <th>Category</th>
+                <th>Delete Operation</th>
+                <th>Update Operation</th>
+            </tr>
+            @foreach (Product item in Model)
+            {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.UnitPrice</td>
+                @if (item.Category == null)
+                {
+                    <td>Has No Category</td>
+                }
+                else
+                {
+                    <td>@item.Category.CategoryName</td>
+                }
+                @{
+                    Employee user = Session["User"] as Employee;
+                    if (user.RolesID == 1)
+                    {
+                        <td>@Html.ActionLink("Delete", "DeleteProduct", "Product", new { id = item.ProductID }, new { @class = "btn btn-danger" })</td>
+                        <td>@Html.ActionLink("Update", "UpdateProduct", "Product", new { id = item.ProductID }, new { @class = "btn btn-primary" })</td>
+                    }
+                }
+                
+                
+            </tr>
+            }
+        </table>
+    </div>
+</div>
+
+@Html.ActionLink("Click Here To Logout", "Logout", "Home");

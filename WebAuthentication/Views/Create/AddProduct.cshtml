@@ -1,0 +1,25 @@
+﻿@model Tuple<List<Category>, Product>
+@{
+    ViewBag.Title = "AddProduct";
+}
+
+<h2>Add Product</h2>
+
+@using (Html.BeginForm())
+{
+    <form>
+        <div class="form-group">
+            <label>Email address</label>
+            <div>@Html.TextBoxFor(x => x.Item2.ProductName, new { placeholder = "Product Name", @class = "form-control" })</div>
+        </div>
+        <div class="form-group">
+            <label>Unit Price</label>
+            <div>@Html.TextBoxFor(x => x.Item2.UnitPrice, new { placeholder = "Unit Price", @class = "form-control" })</div>
+        </div>
+        <div class="form-group">
+            <label>Select an Category</label>
+            <div>@Html.DropDownListFor(x => x.Item2.CategoryID, new SelectList(Model.Item1, "CategoryID", "CategoryName"), "Select An Category For Product", new { @class = "form-control" })</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Product</button>
+    </form>
+}
